@@ -1,7 +1,11 @@
 var dpad, joy, buttons, start;
 
 document.addEventListener ('DOMContentLoaded', function (){
-    console.log ('content loaded')
+    console.log ('content loaded');
+
+    if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
+      document.write("not mobile device");
+    }
 
     WIDTH  = 500;
     HEIGHT = 500;
