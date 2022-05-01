@@ -1,0 +1,343 @@
+html {
+    font-display: swap;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+}
+
+body {
+    background : #cfcccc;
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    grid-template-areas: 'screen' 'controls';
+    touch-action: none;
+    user-select: none;
+}
+
+screen {
+    background: #faa;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #aaa;
+    touch-action: none;
+    user-select: none;
+}
+
+screen canvas {
+    border: 5px double #666;
+    border-radius: 7px;
+    background: #ddd;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+controls {
+    background: #aaa;
+    touch-action: none;
+    user-select: none;
+}
+
+@media (pointer:none), (pointer:coarse) {
+    @media only screen and (orientation: portrait) {
+        screen canvas {
+            height: auto;
+            width: 80%;
+            box-shadow: 3px 3px 5px inset rgba(0,0,0,0.3);
+        }
+
+        controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        controls buttons {
+            display: inline;
+            height: 120px;
+
+        }
+
+        controls dpad , controls buttons {
+            width: 35%;
+            touch-action: none;
+            user-select: none;
+        }
+
+        controls dpad {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            border: 2px solid #bbb;
+            border-radius: 90px;
+            box-shadow: 3px 3px 5px inset rgba(0,0,0,0.5);
+        }
+
+        controls dpad joy {
+            width: 40px;
+            height: 40px;
+            border: 10px groove rgba(50,50,50,0.1);
+            border-radius: 90px;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+            position: relative;
+            z-index:1;
+            background: #666;
+            touch-action: none;
+            user-select: none;
+        }
+
+        controls start {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 15%;
+            font-family: arial;
+            touch-action: none;
+            user-select: none;
+            color: #667;
+            font-style: italic;
+        }
+
+        controls start button {
+            display: block;
+            border: 2px outset rgba(0,0,0,0.2);
+            border-radius: 15px;
+            background: #888;
+            box-shadow: 1px 1px 0px #777,
+                        2px 2px 3px rgba(0,0,0,0.7);
+            height: 20px;
+            width: 50px;
+            margin: 10px;
+            touch-action: none;
+            user-select: none;
+            outline: none;
+        }
+        controls start button:active {
+            box-shadow: none;
+        }
+
+        controls buttons {
+            display: block;
+            transform: rotate(-45deg);
+        }
+        controls buttons button {
+            height: 40px;
+            width: 40px;
+            border-radius: 90px;
+            margin: 10px;
+            text-shadow:  1px  0px 0px rgba(0,0,0,0.3),
+                         -1px  0px 0px rgba(0,0,0,0.3),
+                          0px  1px 0px rgba(0,0,0,0.3),
+                          0px -1px 0px rgba(0,0,0,0.3);
+            user-select: none;
+            outline:none;
+            color: #fff;
+            font-weight: bold;
+            transform: rotate(45deg);
+            touch-action: none;
+            user-select: none;
+        }
+
+        controls buttons button:active {
+            box-shadow: none !important;
+        }
+
+        controls buttons button:nth-child(1) {
+            background: rgba(0,180,0,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(0,130,0,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+
+        controls buttons button:nth-child(2) {
+            background: rgba(50,50,255,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(50,50,205,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+
+        controls buttons button:nth-child(3) {
+            background: rgba(250,190,0,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(200,140,0,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+
+        controls buttons button:nth-child(4) {
+            background: rgba(255,0,0,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(205,0,0,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+    }
+
+    @media only screen and (orientation: landscape) {
+        body {
+            grid-template-areas: 'dpad game buttons' 'dpad base buttons';
+            grid-template-rows: 8fr 2fr;
+            grid-template-columns: 3fr 4fr 3fr;
+        }
+
+        screen {
+            grid-area: game !important;
+            visibility: visible;
+            position: fixed;
+            width: inherit;
+            height: fit-content;
+            background: none !importante;
+        }
+
+        screen canvas {
+            box-shadow: 3px 3px 5px inset rgba(0,0,0,0.3);
+            width: 30%;
+            margin: 10px;
+        }
+
+        controls {
+            height: 100vh;
+            width: 100vw;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            background: #aaa;
+        }
+
+        buttons {
+            grid-area: buttons;
+            display: inline;
+            height: 120px;
+            width: 150px;
+            touch-action: none;
+            user-select: none;
+            position: absolute;
+            visibility: visible;
+            top: calc(50% - 60px);
+            right: 0px;
+        }
+
+        dpad {
+            grid-area: dpad;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            border: 2px solid #bbb;
+            border-radius: 90px;
+            box-shadow: 3px 3px 5px inset rgba(0,0,0,0.5);
+            position: absolute;
+            visibility: visible;
+            top: calc(50% - 60px);
+            left: 40px;
+        }
+
+        dpad joy {
+            width: 40px;
+            height: 40px;
+            border: 10px groove rgba(50,50,50,0.1);
+            border-radius: 90px;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+            background: #666;
+            touch-action: none;
+            user-select: none;
+        }
+
+        start {
+            grid-area: base;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            font-family: arial;
+            touch-action: none;
+            user-select: none;
+            color: #667;
+            font-style: italic;
+            position: absolute;
+            visibility: visible;
+            left: calc(50% - 40px);
+            bottom: 10px;
+        }
+
+        controls start button {
+            display: block;
+            border: 2px outset rgba(0,0,0,0.2);
+            border-radius: 15px;
+            background: #888;
+            box-shadow: 1px 1px 0px #777,
+                        2px 2px 3px rgba(0,0,0,0.7);
+            height: 20px;
+            width: 50px;
+            margin: 5px;
+            touch-action: none;
+            user-select: none;
+            outline: none;
+        }
+        controls start button:active {
+            box-shadow: none;
+        }
+
+        controls buttons {
+            display: block;
+            transform: rotate(-45deg);
+        }
+
+        controls buttons button {
+            height: 40px;
+            width: 40px;
+            border-radius: 90px;
+            margin: 10px;
+            text-shadow:  1px  0px 0px rgba(0,0,0,0.3),
+                         -1px  0px 0px rgba(0,0,0,0.3),
+                          0px  1px 0px rgba(0,0,0,0.3),
+                          0px -1px 0px rgba(0,0,0,0.3);
+            user-select: none;
+            outline:none;
+            color: #fff;
+            font-weight: bold;
+            transform: rotate(45deg);
+            touch-action: none;
+            user-select: none;
+        }
+
+        controls buttons button:active {
+            box-shadow: none !important;
+        }
+
+        controls buttons button:nth-child(1) {
+            background: rgba(0,180,0,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(0,130,0,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+
+        controls buttons button:nth-child(2) {
+            background: rgba(50,50,255,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(50,50,205,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+
+        controls buttons button:nth-child(3) {
+            background: rgba(250,190,0,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(200,140,0,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+
+        controls buttons button:nth-child(4) {
+            background: rgba(255,0,0,1);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 0px rgba(205,0,0,1),
+                        2px 2px 3px rgba(0,0,0,0.5);
+        }
+    }
+}
