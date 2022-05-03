@@ -58,7 +58,7 @@ controls {
 
         controls buttons {
             display: inline;
-            height: 120px;
+            height: 148px;
 
         }
 
@@ -128,8 +128,8 @@ controls {
             transform: rotate(-45deg);
         }
         controls buttons button {
-            height: 40px;
-            width: 40px;
+            height: 48px;
+            width: 48px;
             border-radius: 90px;
             margin: 10px;
             text-shadow:  1px  0px 0px rgba(0,0,0,0.3),
