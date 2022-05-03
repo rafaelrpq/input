@@ -3,9 +3,23 @@ var dpad, joy, buttons, start;
 document.addEventListener ('DOMContentLoaded', function (){
     console.log ('content loaded');
 
-    if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
-      document.write("not mobile device");
-    }
+    // if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
+    //   document.write("not mobile device");
+    // }
+
+    var url = "https://www.grandepremio.com.br/programacao-da-tv";
+    document.addEventListener ("DOMContentLoaded", ()=>{
+        var xhr = new XMLHttpRequest ();
+         xhr.onreadystatechange=function()
+            {
+                if (xhr.readyState == 4 && xhr.status == 200)
+                {
+                    console.log (xhr.responseText);
+                }
+            }
+            xhr.open("GET", url, false );
+            xhr.send();
+    });
 
     WIDTH  = 500;
     HEIGHT = 500;
@@ -142,36 +156,36 @@ document.addEventListener ('DOMContentLoaded', function (){
         h : 8,
         color : '#00f',
     }
-    
+
     function movePlayer () {
         player.x += input.joyX/2;
         player.y += input.joyY/2;
         // player.x += (input.joyX == -32) ? -1 : (input.joyX == 32) ? 1 : 0;
         // player.y += (input.joyY == -32) ? -1 : (input.joyY == 32) ? 1 : 0;
     }
-    
+
     function borderDetect (obj) {
             obj.x = (obj.x < 0) ? 0 : obj.x;
             obj.y = (obj.y < 0) ? 0 : obj.y;
             obj.x = (obj.x > WIDTH  - obj.w) ? WIDTH  - obj.w : obj.x;
             obj.y = (obj.y > HEIGHT - obj.h) ? HEIGHT - obj.h : obj.y;
     }
-    
+
     function updatePlayer () {
         movePlayer ();
         borderDetect (player);
         ctx.save ();
-        
+
         if (input.Y == 1) {
             navigator.vibrate (100);
         }
-        
+
         ctx.fillStyle = player.color;
         ctx.fillRect (player.x, player.y, player.w, player.h);
         ctx.restore ();
     }
-    
-    
+
+
 
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
