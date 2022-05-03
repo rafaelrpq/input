@@ -144,7 +144,7 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
-        var h = 40;
+        var h = 18;
         print (`+========[ Controles ]========+`, 0, h);
         print (`|+=JOYSTICK                   |`, 0, h*2);
         print (`|+---X: ${input.joyX.toString().padStart(3,' ')}                   |`, 0, h*3);
