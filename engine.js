@@ -142,8 +142,7 @@ document.addEventListener ('DOMContentLoaded', function (){
         input.joyY = y;
     }
 
-    function main () {
-        ctx.clearRect (0,0, WIDTH, HEIGHT);
+    function inputTest () {
         var h = 18;
         print (`+========[ Controles ]========+`, 0, h);
         print (`|+=JOYSTICK                   |`, 0, h*2);
@@ -157,6 +156,11 @@ document.addEventListener ('DOMContentLoaded', function (){
         print (`|                             |`, 0, h*10);
         print (`|START:   ${input.start}                   |`, 0, h*11);
         print (`+-----------------------------+`, 0, h*12);
+    }
+
+    function main () {
+        ctx.clearRect (0,0, WIDTH, HEIGHT);
+        inputTest ();
 
         requestAnimationFrame (main);
     }
