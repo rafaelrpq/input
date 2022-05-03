@@ -3,21 +3,9 @@ var dpad, joy, buttons, start;
 document.addEventListener ('DOMContentLoaded', function (){
     console.log ('content loaded');
 
-    // if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
-    //   document.write("not mobile device");
-    // }
-
-    // var url = "https://www.grandepremio.com.br/programacao-da-tv";
-    async function lerAgenda () {
-        const res = await fetch ('https://www.grandepremio.com.br/');
-        if (res.ok) {
-            console.log (res.text ());
-        } else {
-            console.log(res.status);
-        }
+    if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
+      document.write("not mobile device");
     }
-
-    lerAgenda ();
 
     WIDTH  = 500;
     HEIGHT = 500;
