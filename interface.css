@@ -252,6 +252,7 @@ controls {
         start {
             grid-area: base;
             display: flex;
+            float: right;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -263,7 +264,7 @@ controls {
             font-style: italic;
             position: absolute;
             visibility: visible;
-            left: calc(50% - 40px);
+            left: 70px;
             bottom: 10px;
         }
 
