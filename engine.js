@@ -167,8 +167,8 @@ document.addEventListener ('DOMContentLoaded', function (){
     }
     
     function movePlayer () {
-        player.x += input.joyX;
-        player.y += input.joyY;
+        player.x += input.joyX/4;
+        player.y += input.joyY/4;
     }
     
     function updatePlayer () {
@@ -192,7 +192,6 @@ document.addEventListener ('DOMContentLoaded', function (){
         updatePlayer ();
         requestAnimationFrame (main);
     }
-
 
     main ();
 }, false)
