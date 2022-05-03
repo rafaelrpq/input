@@ -158,10 +158,38 @@ document.addEventListener ('DOMContentLoaded', function (){
         print (`+-----------------------------+`, 0, h*12);
     }
 
+    player = {
+        x : WIDTH / 2,
+        y : HEIGHT / 2,
+        w : 8,
+        h : 8,
+        color : '#00f',
+    }
+    
+    function movePlayer () {
+        player.x += input.joyX;
+        player.y += input.joyY;
+    }
+    
+    function updatePlayer () {
+        movePlayer ();
+        player.x = (player.x < 0) ? 0 : player.x;
+        player.y = (player.y < 0) ? 0 : player.y;
+        player.x = (player.x > WIDTH - player.w) ?  WIDTH - player.w : player.x;
+        player.y = (player.y > HEIGHT - player.h) ? HEIGHT - player.h : player.y;
+        ctx.save ();
+        ctx.fillStyle = player.color;
+        ctx.fillRect (player.x, player.y, player.w, player.h);
+        ctx.restore ();
+    }
+    
+    
+
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
-        inputTest ();
-
+        // inputTest ();
+        // ctx.fillRect (player.x, player.y, player.w, player.h);
+        updatePlayer ();
         requestAnimationFrame (main);
     }
 
