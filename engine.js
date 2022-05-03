@@ -16,7 +16,7 @@ document.addEventListener ('DOMContentLoaded', function (){
     print = function (txt, x, y) {
         ctx.save();
         ctx.fillStyle = '#333'
-        ctx.font = '40px VT323';
+        ctx.font = '16px bescii';
         ctx.fillText (txt, x, y);
         ctx.restore();
     }
@@ -31,8 +31,6 @@ document.addEventListener ('DOMContentLoaded', function (){
         X     : 0,
         Y     : 0,
     }
-
-    // print ('GAME', 215, 250);
 
     start = document.querySelector('start button');
 
@@ -101,14 +99,10 @@ document.addEventListener ('DOMContentLoaded', function (){
     })
 
     start.ontouchstart = function (e) {
-        // ctx.clearRect(0,0,500,500);
-        // print ('start clicked', 150, 250)
         input.start = 1;
     }
 
     start.ontouchend = function () {
-        // ctx.clearRect(0,0,500,500);
-        // print ('start released', 140, 250)
         input.start = 0
     }
 
@@ -127,9 +121,7 @@ document.addEventListener ('DOMContentLoaded', function (){
     joy.ontouchstart = function (e) {
         initialX = Math.round (e.targetTouches[0].pageX);
         initialY = Math.round (e.targetTouches[0].pageY);
-        //console.log (`initialX: ${initialX}\ninitialY: ${initialY}`)
         joy.ontouchmove = function (e) {
-            // console.log (`x: ${x}\ny: ${y}`)
             x = Math.round (e.targetTouches[0].pageX) - initialX;
             y = Math.round (e.targetTouches[0].pageY) - initialY;
             x = (x < -32) ? -32 : x;
@@ -146,12 +138,6 @@ document.addEventListener ('DOMContentLoaded', function (){
         x=0;
         y=0;
         joy.style.transform='translate3d('+x+'px,'+y+'px,0)';
-        // ctx.clearRect (0,0,500,500);
-        // print (`joystick`,200,225);
-        // print (`x: ${x}`,220,260);
-        // print (`y: ${y}`,220,285)
-        console.log (`[joy.x] : ${x}`);
-        console.log (`[joy.y] : ${y}`);
         input.joyX = x;
         input.joyY = y;
     }
