@@ -36,56 +36,35 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     buttons = document.querySelectorAll ('buttons button');
 
-    var Y=0, X=0, B=0, A=0;
     buttons[0].ontouchstart = function (e) {
-        // ctx.clearRect(0,0,500,500);
-        // print ('Y clicked', 190, 250)
-        console.log (`[ Y ] : ${++Y}`);
         input.Y = 1;
     }
 
     buttons[0].ontouchend = function () {
-        // ctx.clearRect(0,0,500,500);
-        // print ('Y released', 180, 250)
         input.Y = 0;
     };
 
     buttons[1].ontouchstart = function (e) {
-        // ctx.clearRect(0,0,500,500);
-        // print ('X clicked', 190, 250)
-        console.log (`[ X ] : ${++X}`);
         input.X = 1;
     }
 
     buttons[1].ontouchend = function () {
-        // ctx.clearRect(0,0,500,500);
-        // print ('X released', 180, 250)
         input.X = 0;
     };
 
     buttons[2].ontouchstart = function (e) {
-        // ctx.clearRect(0,0,500,500);
-        // print ('B clicked', 190, 250)
-        console.log (`[ B ] : ${++B}`);
         input.B = 1;
     }
 
     buttons[2].ontouchend = function () {
-        // ctx.clearRect(0,0,500,500);
-        // print ('B released', 180, 250)
         input.B = 0;
     };
 
     buttons[3].ontouchstart = function (e) {
-        // ctx.clearRect(0,0,500,500);
-        // print ('A clicked', 190, 250)
-        console.log (`[ A ] : ${++A}`);
         input.A = 1;
     }
 
     buttons[3].ontouchend = function () {
-        // ctx.clearRect(0,0,500,500);
-        // print ('A released', 180, 250)
         input.A = 0;
     };
 
@@ -135,11 +114,9 @@ document.addEventListener ('DOMContentLoaded', function (){
     }
 
     joy.ontouchend = function () {
-        x=0;
-        y=0;
-        joy.style.transform='translate3d('+x+'px,'+y+'px,0)';
-        input.joyX = x;
-        input.joyY = y;
+        joy.style.transform='translate3d(0px, 0px, 0)';
+        input.joyX = 0;
+        input.joyY = 0;
     }
 
     function inputTest () {
@@ -167,17 +144,28 @@ document.addEventListener ('DOMContentLoaded', function (){
     }
     
     function movePlayer () {
-        player.x += input.joyX/4;
-        player.y += input.joyY/4;
+        player.x += input.joyX/2;
+        player.y += input.joyY/2;
+        // player.x += (input.joyX == -32) ? -1 : (input.joyX == 32) ? 1 : 0;
+        // player.y += (input.joyY == -32) ? -1 : (input.joyY == 32) ? 1 : 0;
+    }
+    
+    function borderDetect (obj) {
+            obj.x = (obj.x < 0) ? 0 : obj.x;
+            obj.y = (obj.y < 0) ? 0 : obj.y;
+            obj.x = (obj.x > WIDTH  - obj.w) ? WIDTH  - obj.w : obj.x;
+            obj.y = (obj.y > HEIGHT - obj.h) ? HEIGHT - obj.h : obj.y;
     }
     
     function updatePlayer () {
         movePlayer ();
-        player.x = (player.x < 0) ? 0 : player.x;
-        player.y = (player.y < 0) ? 0 : player.y;
-        player.x = (player.x > WIDTH - player.w) ?  WIDTH - player.w : player.x;
-        player.y = (player.y > HEIGHT - player.h) ? HEIGHT - player.h : player.y;
+        borderDetect (player);
         ctx.save ();
+        
+        if (input.Y == 1) {
+            navigator.vibrate (100);
+        }
+        
         ctx.fillStyle = player.color;
         ctx.fillRect (player.x, player.y, player.w, player.h);
         ctx.restore ();
@@ -186,9 +174,9 @@ document.addEventListener ('DOMContentLoaded', function (){
     
 
     function main () {
+        print (`vel x: ${input.joyX.toString().padStart(3,' ')}`,16, 16);
+        print (`vel y: ${input.joyY.toString().padStart(3,' ')}`,16, 36);
         ctx.clearRect (0,0, WIDTH, HEIGHT);
-        // inputTest ();
-        // ctx.fillRect (player.x, player.y, player.w, player.h);
         updatePlayer ();
         requestAnimationFrame (main);
     }
