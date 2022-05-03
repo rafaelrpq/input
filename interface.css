@@ -196,7 +196,7 @@ controls {
 
         screen canvas {
             box-shadow: 3px 3px 5px inset rgba(0,0,0,0.3);
-            width: 30%;
+            width: 40%;
             margin: 10px;
         }
 
@@ -288,11 +288,12 @@ controls {
         controls buttons {
             display: block;
             transform: rotate(-45deg);
+            margin-right : 45px;
         }
 
         controls buttons button {
-            height: 40px;
-            width: 40px;
+            height: 48px;
+            width: 48px;
             border-radius: 90px;
             margin: 10px;
             text-shadow:  1px  0px 0px rgba(0,0,0,0.3),
