@@ -130,8 +130,8 @@ document.addEventListener ('DOMContentLoaded', function (){
         //console.log (`initialX: ${initialX}\ninitialY: ${initialY}`)
         joy.ontouchmove = function (e) {
             // console.log (`x: ${x}\ny: ${y}`)
-            x = e.targetTouches[0].pageX - initialX;
-            y = e.targetTouches[0].pageY - initialY;
+            x = Math.round (e.targetTouches[0].pageX) - initialX;
+            y = Math.round (e.targetTouches[0].pageY) - initialY;
             x = (x < -32) ? -32 : x;
             x = (x >  32) ?  32 : x;
             y = (y < -32) ? -32 : y;
