@@ -159,8 +159,8 @@ document.addEventListener ('DOMContentLoaded', function (){
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
         var h = 40;
-        print (`[========= Controles =========]`, 0, h);
-        print (`|JOYSTICK                     |`, 0, h*2);
+        print (`+========[ Controles ]========+`, 0, h);
+        print (`|+=JOYSTICK                   |`, 0, h*2);
         print (`|+---X: ${input.joyX.toString().padStart(3,' ')}                   |`, 0, h*3);
         print (`|+---Y: ${input.joyY.toString().padStart(3,' ')}                   |`, 0, h*4);
         print (`|                             |`, 0, h*5);
