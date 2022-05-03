@@ -174,9 +174,9 @@ document.addEventListener ('DOMContentLoaded', function (){
     
 
     function main () {
+        ctx.clearRect (0,0, WIDTH, HEIGHT);
         print (`vel x: ${input.joyX.toString().padStart(3,' ')}`,16, 16);
         print (`vel y: ${input.joyY.toString().padStart(3,' ')}`,16, 36);
-        ctx.clearRect (0,0, WIDTH, HEIGHT);
         updatePlayer ();
         requestAnimationFrame (main);
     }
