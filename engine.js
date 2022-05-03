@@ -125,24 +125,20 @@ document.addEventListener ('DOMContentLoaded', function (){
     var x=0, y=0;
 
     joy.ontouchstart = function (e) {
-        initialX = Math.round (e.touches[0].clientX);
-        initialY = Math.round (e.touches[0].clientY);
+        initialX = Math.round (e.targetTouches[0].pageX);
+        initialY = Math.round (e.targetTouches[0].pageY);
         //console.log (`initialX: ${initialX}\ninitialY: ${initialY}`)
         joy.ontouchmove = function (e) {
-            x = Math.round (e.touches[0].clientX-initialX);
-            y = Math.round (e.touches[0].clientY-initialY);
             // console.log (`x: ${x}\ny: ${y}`)
-            if ((x >= -32 && y >= -32) && (x <= 32 && y <= 32) ) {
-                joy.style.transform='translate3d('+x+'px,'+y+'px,0)';
-                // ctx.clearRect (0,0,500,500);
-                // print (`joystick`,200,225);
-                // print (`x: ${x}`,220,260);
-                // print (`y: ${y}`,220,285)
-                console.log (`[joy.x] : ${x}`);
-                console.log (`[joy.y] : ${y}`);
-                input.joyX = x;
-                input.joyY = y;
-            }
+            x = e.targetTouches[0].pageX - initialX;
+            y = e.targetTouches[0].pageY - initialY;
+            x = (x < -32) ? -32 : x;
+            x = (x >  32) ?  32 : x;
+            y = (y < -32) ? -32 : y;
+            y = (y >  32) ?  32 : y;
+            joy.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            input.joyX = x;
+            input.joyY = y;
         }
     }
 
