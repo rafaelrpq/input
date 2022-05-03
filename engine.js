@@ -7,19 +7,17 @@ document.addEventListener ('DOMContentLoaded', function (){
     //   document.write("not mobile device");
     // }
 
-    var url = "https://www.grandepremio.com.br/programacao-da-tv";
-    document.addEventListener ("DOMContentLoaded", ()=>{
-        var xhr = new XMLHttpRequest ();
-         xhr.onreadystatechange=function()
-            {
-                if (xhr.readyState == 4 && xhr.status == 200)
-                {
-                    console.log (xhr.responseText);
-                }
-            }
-            xhr.open("GET", url, false );
-            xhr.send();
-    });
+    // var url = "https://www.grandepremio.com.br/programacao-da-tv";
+    async function lerAgenda () {
+        const res = await fetch ('https://www.grandepremio.com.br/');
+        if (res.ok) {
+            console.log (res.text ());
+        } else {
+            console.log(res.status);
+        }
+    }
+
+    lerAgenda ();
 
     WIDTH  = 500;
     HEIGHT = 500;
