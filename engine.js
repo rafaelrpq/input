@@ -2,6 +2,8 @@ var dpad, joy, buttons, start;
 
 var player;
 
+var run, paused;
+
 document.addEventListener ('DOMContentLoaded', function (){
     console.log ('content loaded');
 
@@ -236,13 +238,11 @@ document.addEventListener ('DOMContentLoaded', function (){
     }
 
     function borderDetect (obj) {
-            obj.x = (obj.x < 0) ? 5 : obj.x;
-            obj.y = (obj.y < 0) ? 5 : obj.y;
-            obj.x = (obj.x > WIDTH  - obj.w) ? WIDTH  - obj.w - 5 : obj.x;
-            obj.y = (obj.y > HEIGHT - obj.h) ? HEIGHT - obj.h - 5 : obj.y;
-            if (obj.x == 0 || obj.x - obj.w == WIDTH || obj.y == 0 || obj.y - obj.h == HEIGHT) {
-                navigator.vibrate (10);
-            }
+            obj.x = (obj.x < 0) ? 0 : obj.x;
+            obj.y = (obj.y < 0) ? 0 : obj.y;
+            obj.x = (obj.x > WIDTH  - obj.w) ? WIDTH  - obj.w : obj.x;
+            obj.y = (obj.y > HEIGHT - obj.h) ? HEIGHT - obj.h : obj.y;
+
     }
 
     player = new Player (WIDTH/2, HEIGHT/2, 32, 32, 'assets/boo.png', Type.IMAGE);
@@ -262,7 +262,13 @@ document.addEventListener ('DOMContentLoaded', function (){
         }
 
         if (input.start) {
-            navigator.vibrate([100,50,300,250,120]);
+            if (paused) {
+                run = setInterval (main, 1000/60);
+                paused = false;
+            } else {
+                clearInterval (run);
+                paused = true;
+            }
         }
 
         player.draw ();
@@ -277,8 +283,11 @@ document.addEventListener ('DOMContentLoaded', function (){
         print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,16, 16);
         print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,17, 37, '#a00');
         print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,16, 36);
-        requestAnimationFrame (main);
+        // requestAnimationFrame (main);
     }
 
-    main ();
+    // main ();
+    run = setInterval (main, 1000/60);
+    paused = false;
+
 }, false)
