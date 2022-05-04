@@ -1,5 +1,7 @@
 var dpad, joy, buttons, start;
 
+var player;
+
 document.addEventListener ('DOMContentLoaded', function (){
     console.log ('content loaded');
 
@@ -15,7 +17,7 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     print = function (txt, x, y) {
         ctx.save();
-        ctx.fillStyle = '#333'
+        ctx.fillStyle = '#aaa'
         ctx.font = '16px bescii';
         ctx.fillText (txt, x, y);
         ctx.restore();
@@ -135,19 +137,101 @@ document.addEventListener ('DOMContentLoaded', function (){
         print (`+-----------------------------+`, 0, h*12);
     }
 
-    player = {
-        x : WIDTH / 2,
-        y : HEIGHT / 2,
-        w : 16,
-        h : 16,
-        color : '#00f',
+    Type = {
+        COLOR : 0,
+        IMAGE : 1,
     }
 
-    function movePlayer () {
-        player.x += input.joyX/2;
-        player.y += input.joyY/2;
-        // player.x += (input.joyX == -32) ? -1 : (input.joyX == 32) ? 1 : 0;
-        // player.y += (input.joyY == -32) ? -1 : (input.joyY == 32) ? 1 : 0;
+    Direction = {
+        UP    : 0,
+        RIGHT : 1,
+        DOWN  : 2,
+        LEFT  : 3,
+    }
+
+    class Obj {
+        x         = 0;
+        y         = 0;
+        w         = 0;
+        h         = 0
+        bg        = '';
+        type      = '';
+        direction = '';
+
+        constructor (x, y, w, h, bg, type=Type.COLOR) {
+            this.x    = x;
+            this.y    = y;
+            this.w    = w;
+            this.h    = h;
+            this.bg   = bg;
+            this.type = type;
+        }
+
+        draw (bg=this.bg) {
+            ctx.save ();
+            switch (this.type) {
+                case Type.COLOR :
+                    ctx.fillStyle = bg;
+                    ctx.fillRect (this.x, this.y, this.w, this.h);
+                break;
+                case Type.IMAGE :
+                    let img = new Image ();
+                    img.src = bg;
+                    ctx.drawImage (img, this.x, this.y, this.w, this.h);
+                break;
+                default :
+                    console.log('error');
+            }
+            ctx.restore ();
+        }
+    }
+
+    class Player extends Obj {
+        direction = '';
+        draw (bg=this.bg) {
+            ctx.save ();
+            switch (this.type) {
+                case Type.COLOR :
+                    ctx.fillStyle = bg;
+                    ctx.fillRect (this.x, this.y, this.w, this.h);
+                break;
+
+                case Type.IMAGE :
+                    let img = new Image ();
+                    img.src = bg;
+
+                    switch (this.direction) {
+                        case Direction.RIGHT :
+                            // ctx.translate(0, 0);
+                            ctx.scale(1, 1);
+                            ctx.drawImage (img, this.x, this.y, this.w, this.h);
+                        break;
+                        case Direction.LEFT :
+                            ctx.scale(-1, 1);
+                            ctx.drawImage (img, -this.x-this.w, this.y, this.w, this.h);
+                            ctx.scale(-1, 1);
+                        break;
+
+                        default:
+                            ctx.drawImage (img, this.x, this.y, this.w, this.h);
+                    }
+
+                break;
+
+                default :
+                    console.log('error');
+            }
+            ctx.restore ();
+        }
+
+        move () {
+            this.direction = (input.joyX < 0) ? Direction.LEFT : (input.joyX > 0) ? Direction.RIGHT : this.direction ;
+
+            player.x += input.joyX/2;
+            player.y += input.joyY/2;
+            // player.x += (input.joyX == -32) ? -1 : (input.joyX == 32) ? 1 : 0;
+            // player.y += (input.joyY == -32) ? -1 : (input.joyY == 32) ? 1 : 0;
+        }
     }
 
     function borderDetect (obj) {
@@ -157,22 +241,21 @@ document.addEventListener ('DOMContentLoaded', function (){
             obj.y = (obj.y > HEIGHT - obj.h) ? HEIGHT - obj.h : obj.y;
     }
 
+    player = new Player (WIDTH/2, HEIGHT/2, 32, 32, 'assets/boo.png', Type.IMAGE);
+
     function updatePlayer () {
-        movePlayer ();
+        player.move ();
         borderDetect (player);
-        ctx.save ();
-        ctx.fillStyle = player.color;
-        ctx.fillRect (player.x, player.y, player.w, player.h);
-        ctx.restore ();
+        player.draw ();
     }
 
 
 
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
-        print (`vel x  : ${input.joyX.toString().padStart(3,' ')}`,16, 16);
-        print (`vel y  : ${input.joyY.toString().padStart(3,' ')}`,16, 36);
         updatePlayer ();
+        print (`vel x  : ${(input.joyX/2).toString().padStart(4,' ')}`,16, 16);
+        print (`vel y  : ${(input.joyY/2).toString().padStart(4,' ')}`,16, 36);
         requestAnimationFrame (main);
     }
 
