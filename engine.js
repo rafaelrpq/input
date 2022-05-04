@@ -14,6 +14,7 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     canvas = document.querySelector('canvas');
     ctx    = canvas.getContext ('2d');
+    ctx.imageSmoothingEnabled = false;
 
     print = function (txt, x, y, color='#aaa') {
         ctx.save();
@@ -246,6 +247,17 @@ document.addEventListener ('DOMContentLoaded', function (){
     function updatePlayer () {
         player.move ();
         borderDetect (player);
+
+        if (input.Y) {
+            player.w = (player.w < 128) ? player.w * 2 : player.w;
+            player.h = (player.h < 128) ? player.h * 2 : player.h;
+        }
+
+        if (input.B) {
+            player.w = (player.w > 32) ? player.w / 2 : player.w;
+            player.h = (player.h > 32) ? player.h / 2 : player.h;
+        }
+
         player.draw ();
     }
 

@@ -38,6 +38,7 @@ screen canvas {
     background: #333;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    image-rendering: -webkit-crisp-edges;
 }
 
 controls {
