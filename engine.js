@@ -268,6 +268,9 @@ document.addEventListener ('DOMContentLoaded', function (){
                 paused = false;
             } else {
                 navigator.vibrate(10,10,10);
+                let msg = "[ PAUSE ]";
+                let len = msg.length;
+                print (msg, WIDTH /2 - (len/2) * 16, (HEIGHT/2) * 16, '#fa0', '#333');
                 clearInterval (run);
                 paused = true;
             }
