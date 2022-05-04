@@ -263,9 +263,11 @@ document.addEventListener ('DOMContentLoaded', function (){
 
         if (input.start) {
             if (paused) {
+                navigator.vibrate(10)
                 run = setInterval (main, 1000/60);
                 paused = false;
             } else {
+                navigator.vibrate(10,10,10);
                 clearInterval (run);
                 paused = true;
             }
