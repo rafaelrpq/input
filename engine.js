@@ -15,9 +15,9 @@ document.addEventListener ('DOMContentLoaded', function (){
     canvas = document.querySelector('canvas');
     ctx    = canvas.getContext ('2d');
 
-    print = function (txt, x, y) {
+    print = function (txt, x, y, color='#aaa') {
         ctx.save();
-        ctx.fillStyle = '#aaa'
+        ctx.fillStyle = color
         ctx.font = '16px bescii';
         ctx.fillText (txt, x, y);
         ctx.restore();
@@ -227,8 +227,8 @@ document.addEventListener ('DOMContentLoaded', function (){
         move () {
             this.direction = (input.joyX < 0) ? Direction.LEFT : (input.joyX > 0) ? Direction.RIGHT : this.direction ;
 
-            player.x += input.joyX/2;
-            player.y += input.joyY/2;
+            player.x += input.joyX/4;
+            player.y += input.joyY/4;
             // player.x += (input.joyX == -32) ? -1 : (input.joyX == 32) ? 1 : 0;
             // player.y += (input.joyY == -32) ? -1 : (input.joyY == 32) ? 1 : 0;
         }
@@ -254,8 +254,10 @@ document.addEventListener ('DOMContentLoaded', function (){
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
         updatePlayer ();
-        print (`vel x  : ${(input.joyX/2).toString().padStart(4,' ')}`,16, 16);
-        print (`vel y  : ${(input.joyY/2).toString().padStart(4,' ')}`,16, 36);
+        print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,17, 17, '#000');
+        print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,16, 16);
+        print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,17, 37, '#000');
+        print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,16, 36);
         requestAnimationFrame (main);
     }
 
