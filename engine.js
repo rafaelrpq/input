@@ -258,6 +258,10 @@ document.addEventListener ('DOMContentLoaded', function (){
             player.h = (player.h > 32) ? player.h / 2 : player.h;
         }
 
+        if (input.START) {
+            navigator.vibrate(1000);
+        }
+
         player.draw ();
     }
 
@@ -266,9 +270,9 @@ document.addEventListener ('DOMContentLoaded', function (){
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
         updatePlayer ();
-        print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,17, 17, '#000');
+        print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,17, 17, '#a00');
         print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,16, 16);
-        print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,17, 37, '#000');
+        print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,17, 37, '#a00');
         print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,16, 36);
         requestAnimationFrame (main);
     }
