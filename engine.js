@@ -240,7 +240,7 @@ document.addEventListener ('DOMContentLoaded', function (){
             obj.y = (obj.y < 0) ? 0 : obj.y;
             obj.x = (obj.x > WIDTH  - obj.w) ? WIDTH  - obj.w : obj.x;
             obj.y = (obj.y > HEIGHT - obj.h) ? HEIGHT - obj.h : obj.y;
-            if (obj.x == 0 || obj.x == WIDTH || obj.y == 0 || obj.w == HEIGHT) {
+            if (obj.x == 0 || obj.x - obj.w == WIDTH || obj.y == 0 || obj.y - obj.h == HEIGHT) {
                 navigator.vibrate (10);
             }
     }
