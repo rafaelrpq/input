@@ -36,7 +36,7 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     buttons = document.querySelectorAll ('buttons button');
 
-    buttons[0].ontouchstart = function (e) {
+    buttons[0].ontouchstart = function () {
         input.Y = 1;
     }
 
@@ -138,8 +138,8 @@ document.addEventListener ('DOMContentLoaded', function (){
     player = {
         x : WIDTH / 2,
         y : HEIGHT / 2,
-        w : 8,
-        h : 8,
+        w : 16,
+        h : 16,
         color : '#00f',
     }
 
@@ -161,11 +161,6 @@ document.addEventListener ('DOMContentLoaded', function (){
         movePlayer ();
         borderDetect (player);
         ctx.save ();
-
-        if (input.Y == 1) {
-            navigator.vibrate (100);
-        }
-
         ctx.fillStyle = player.color;
         ctx.fillRect (player.x, player.y, player.w, player.h);
         ctx.restore ();
@@ -175,8 +170,8 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
-        print (`vel x: ${input.joyX.toString().padStart(3,' ')}`,16, 16);
-        print (`vel y: ${input.joyY.toString().padStart(3,' ')}`,16, 36);
+        print (`vel x  : ${input.joyX.toString().padStart(3,' ')}`,16, 16);
+        print (`vel y  : ${input.joyY.toString().padStart(3,' ')}`,16, 36);
         updatePlayer ();
         requestAnimationFrame (main);
     }
