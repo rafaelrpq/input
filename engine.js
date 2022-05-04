@@ -240,6 +240,9 @@ document.addEventListener ('DOMContentLoaded', function (){
             obj.y = (obj.y < 0) ? 0 : obj.y;
             obj.x = (obj.x > WIDTH  - obj.w) ? WIDTH  - obj.w : obj.x;
             obj.y = (obj.y > HEIGHT - obj.h) ? HEIGHT - obj.h : obj.y;
+            if (obj.x == 0 || obj.x == WIDTH || obj.y == 0 || obj.w == HEIGHT) {
+                navigator.vibrate (10);
+            }
     }
 
     player = new Player (WIDTH/2, HEIGHT/2, 32, 32, 'assets/boo.png', Type.IMAGE);
