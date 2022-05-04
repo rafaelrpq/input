@@ -259,7 +259,7 @@ document.addEventListener ('DOMContentLoaded', function (){
         }
 
         if (input.start) {
-            navigator.vibrate(1000);
+            navigator.vibrate([100,0,100,350,0]);
         }
 
         player.draw ();
