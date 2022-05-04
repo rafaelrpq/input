@@ -258,7 +258,7 @@ document.addEventListener ('DOMContentLoaded', function (){
             player.h = (player.h > 32) ? player.h / 2 : player.h;
         }
 
-        if (input.START) {
+        if (input.start) {
             navigator.vibrate(1000);
         }
 
