@@ -4,8 +4,10 @@ var player;
 
 var run, gameloop, paused;
 
-function playAudio (bgSound, volume=1, loop = false) {
-    var audio = new Audio (bgSound);
+var bgSound;
+
+function playAudio (sound, volume=1, loop = false) {
+    var audio = new Audio (sound);
     if (loop) {
         audio.addEventListener ('timeupdate', function () {
             var buffer = .5;
@@ -17,6 +19,16 @@ function playAudio (bgSound, volume=1, loop = false) {
     }
     audio.volume = volume;
     audio.play ();
+    return audio;
+}
+
+function pauseGame () {
+    let msg = "[ PAUSE ]";
+    let len = msg.length;
+    print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/2)+1, '#000');
+    print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
+    clearInterval (gameloop);
+    paused = true;
 }
 
 document.addEventListener ('DOMContentLoaded', function (){
@@ -86,22 +98,24 @@ document.addEventListener ('DOMContentLoaded', function (){
         }
     })
 
+
+    window.onblur = function () {
+        pauseGame ();
+        bgSound.pause ();
+    }
+
     input.START.ontouchstart = function (e) {
         navigator.vibrate(10)
         if (run) {
             if (paused) {
                 gameloop = setInterval (main, 1000/60);
                 paused = false;
+                bgSound.play();
             } else {
-                let msg = "[ PAUSE ]";
-                let len = msg.length;
-                print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/2)+1, '#000');
-                print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
-                clearInterval (gameloop);
-                paused = true;
+                pauseGame ();
             }
         } else {
-            playAudio ('assets/ghosthouse.mp3', 0.5, true);
+            bgSound = playAudio ('assets/ghosthouse.mp3', 0.5, true);
             gameloop = setInterval (main, 1000/60);
             paused = false;
             run = true;
