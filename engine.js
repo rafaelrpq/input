@@ -262,17 +262,20 @@ document.addEventListener ('DOMContentLoaded', function (){
         }
 
         if (input.start) {
-            if (paused) {
-                navigator.vibrate(10)
-                run = setInterval (main, 1000/60);
-                paused = false;
-            } else {
-                navigator.vibrate(10,10,10);
+            if (!paused) {
+                // navigator.vibrate(10,10,10);
                 let msg = "[ PAUSE ]";
                 let len = msg.length;
-                print (msg, WIDTH /2 - (len/2) * 16, (HEIGHT/2) * 16, '#fa0', '#333');
+                print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
                 clearInterval (run);
                 paused = true;
+                console.log ('paused');
+                teste ();
+            } else {
+                // navigator.vibrate(10)
+                run = setInterval (main, 1000/60);
+                paused = false;
+                console.log ('running');
             }
         }
 
@@ -289,6 +292,10 @@ document.addEventListener ('DOMContentLoaded', function (){
         print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,17, 37, '#a00');
         print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,16, 36);
         // requestAnimationFrame (main);
+    }
+
+    function teste () {
+        console.log ('teste');
     }
 
     // main ();
