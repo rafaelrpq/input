@@ -4,15 +4,18 @@ var player;
 
 var run, gameloop, paused;
 
-function audioLoop (bgSound) {
+function playAudio (bgSound, volume=1, loop = false) {
     var audio = new Audio (bgSound);
-    audio.addEventListener ('timeupdate', function () {
-        var buffer = .5;
-        if (this.currentTime > this.duration - buffer) {
-            this.currentTime = 0;
-            this.play ();
-        }
-    });
+    if (loop) {
+        audio.addEventListener ('timeupdate', function () {
+            var buffer = .5;
+            if (this.currentTime > this.duration - buffer) {
+                this.currentTime = 0;
+                this.play ();
+            }
+        });
+    }
+    audio.volume = volume;
     audio.play ();
 }
 
@@ -71,6 +74,7 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     input.A.ontouchstart = function (e) {
         navigator.vibrate(10)
+        playAudio ('assets/coin.mp3');
     }
 
     buttons.forEach (function (){
@@ -97,7 +101,7 @@ document.addEventListener ('DOMContentLoaded', function (){
                 paused = true;
             }
         } else {
-            audioLoop ('assets/ghosthouse.ogg');
+            playAudio ('assets/ghosthouse.mp3', 0.5, true);
             gameloop = setInterval (main, 1000/60);
             paused = false;
             run = true;
