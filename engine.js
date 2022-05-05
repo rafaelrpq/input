@@ -75,7 +75,6 @@ document.addEventListener ('DOMContentLoaded', function (){
         if (paused) {
             run = setInterval (main, 1000/60);
             paused = false;
-            console.log ('running');
         } else {
             let msg = "[ PAUSE ]";
             let len = msg.length;
@@ -83,7 +82,6 @@ document.addEventListener ('DOMContentLoaded', function (){
             print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
             clearInterval (run);
             paused = true;
-            console.log ('paused');
         }
     }
 
@@ -120,22 +118,6 @@ document.addEventListener ('DOMContentLoaded', function (){
         input.joyX = 0;
         input.joyY = 0;
     }
-
-    // function inputTest () {
-    //     var h = 18;
-    //     print (`+========[ Controles ]========+`, 0, h);
-    //     print (`|+=JOYSTICK                   |`, 0, h*2);
-    //     print (`|+---X: ${input.joyX.toString().padStart(3,' ')}                   |`, 0, h*3);
-    //     print (`|+---Y: ${input.joyY.toString().padStart(3,' ')}                   |`, 0, h*4);
-    //     print (`|                             |`, 0, h*5);
-    //     print (`|    Y:   ${input.Y}                   |`, 0, h*6);
-    //     print (`|    X:   ${input.X}                   |`, 0, h*7);
-    //     print (`|    B:   ${input.B}                   |`, 0, h*8);
-    //     print (`|    A:   ${input.A}                   |`, 0, h*9);
-    //     print (`|                             |`, 0, h*10);
-    //     print (`|START:   ${input.start}                   |`, 0, h*11);
-    //     print (`+-----------------------------+`, 0, h*12);
-    // }
 
     Type = {
         COLOR : 0,
@@ -250,10 +232,18 @@ document.addEventListener ('DOMContentLoaded', function (){
         player.draw ();
     }
 
+    var bg = new Image ();
+    bg.src = 'assets/Ghost House.png';
 
+   drawBG = () => {
+        ctx.save ();
+        ctx.drawImage (bg, 0, 0, WIDTH, HEIGHT);
+        ctx.restore ();
+   }
 
     function main () {
         ctx.clearRect (0,0, WIDTH, HEIGHT);
+        drawBG ();
         updatePlayer ();
         print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,17, 17, '#a00');
         print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,16, 16);
