@@ -42,40 +42,24 @@ document.addEventListener ('DOMContentLoaded', function (){
     buttons = document.querySelectorAll ('buttons button');
 
     input.Y.ontouchstart = function () {
-        // input.Y = 1;
+        navigator.vibrate(10)
         player.w = (player.w < 128) ? player.w * 2 : player.w;
         player.h = (player.h < 128) ? player.h * 2 : player.h;
     }
 
-    // buttons[0].ontouchend = function () {
-    //     input.Y = 0;
-    // };
-
     input.X.ontouchstart = function (e) {
-        // input.X = 1;
+        navigator.vibrate(10)
     }
 
-    // buttons[1].ontouchend = function () {
-    //     input.X = 0;
-    // };
-
     input.B.ontouchstart = function (e) {
-        // input.B = 1;
+        navigator.vibrate(10)
         player.w = (player.w > 32) ? player.w / 2 : player.w;
         player.h = (player.h > 32) ? player.h / 2 : player.h;
     }
 
-    // buttons[2].ontouchend = function () {
-    //     input.B = 0;
-    // };
-
     input.A.ontouchstart = function (e) {
-        // input.A = 1;
+        navigator.vibrate(10)
     }
-
-    // buttons[3].ontouchend = function () {
-    //     input.A = 0;
-    // };
 
     buttons.forEach (function (){
         this.oncontextmenu = function (e) {
@@ -87,14 +71,12 @@ document.addEventListener ('DOMContentLoaded', function (){
     })
 
     input.START.ontouchstart = function (e) {
-        // input.start = 1;
+        navigator.vibrate(10)
         if (paused) {
-            navigator.vibrate(10,10,10);
             run = setInterval (main, 1000/60);
             paused = false;
             console.log ('running');
         } else {
-            navigator.vibrate(10)
             let msg = "[ PAUSE ]";
             let len = msg.length;
             print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
@@ -103,10 +85,6 @@ document.addEventListener ('DOMContentLoaded', function (){
             console.log ('paused');
         }
     }
-
-    // start.ontouchend = function () {
-    //     input.start = 0
-    // }
 
     input.START.oncontextmenu = function (e) {
         e.preventDefault()
