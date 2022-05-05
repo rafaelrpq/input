@@ -30,52 +30,52 @@ document.addEventListener ('DOMContentLoaded', function (){
     input = {
         joyX  : 0,
         joyY  : 0,
-        start : 0,
-        A     : 0,
-        B     : 0,
-        X     : 0,
-        Y     : 0,
+        START : document.querySelector ('start button'),
+        Y     : document.querySelectorAll ('buttons button')[0],
+        X     : document.querySelectorAll ('buttons button')[1],
+        B     : document.querySelectorAll ('buttons button')[2],
+        A     : document.querySelectorAll ('buttons button')[3],
     }
 
     start = document.querySelector('start button');
 
     buttons = document.querySelectorAll ('buttons button');
 
-    buttons[0].ontouchstart = function () {
-        input.Y = 1;
-    }
-
-    buttons[0].ontouchend = function () {
-        input.Y = 0;
+    input.Y.ontouchstart = function () {
+        // input.Y = 1;
         player.w = (player.w < 128) ? player.w * 2 : player.w;
         player.h = (player.h < 128) ? player.h * 2 : player.h;
-    };
-
-    buttons[1].ontouchstart = function (e) {
-        input.X = 1;
     }
 
-    buttons[1].ontouchend = function () {
-        input.X = 0;
-    };
+    // buttons[0].ontouchend = function () {
+    //     input.Y = 0;
+    // };
 
-    buttons[2].ontouchstart = function (e) {
-        input.B = 1;
+    input.X.ontouchstart = function (e) {
+        // input.X = 1;
+    }
+
+    // buttons[1].ontouchend = function () {
+    //     input.X = 0;
+    // };
+
+    input.B.ontouchstart = function (e) {
+        // input.B = 1;
         player.w = (player.w > 32) ? player.w / 2 : player.w;
         player.h = (player.h > 32) ? player.h / 2 : player.h;
     }
 
-    buttons[2].ontouchend = function () {
-        input.B = 0;
-    };
+    // buttons[2].ontouchend = function () {
+    //     input.B = 0;
+    // };
 
-    buttons[3].ontouchstart = function (e) {
-        input.A = 1;
+    input.A.ontouchstart = function (e) {
+        // input.A = 1;
     }
 
-    buttons[3].ontouchend = function () {
-        input.A = 0;
-    };
+    // buttons[3].ontouchend = function () {
+    //     input.A = 0;
+    // };
 
     buttons.forEach (function (){
         this.oncontextmenu = function (e) {
@@ -86,8 +86,8 @@ document.addEventListener ('DOMContentLoaded', function (){
         }
     })
 
-    start.ontouchstart = function (e) {
-        input.start = 1;
+    input.START.ontouchstart = function (e) {
+        // input.start = 1;
         if (paused) {
             navigator.vibrate(10,10,10);
             run = setInterval (main, 1000/60);
@@ -104,11 +104,11 @@ document.addEventListener ('DOMContentLoaded', function (){
         }
     }
 
-    start.ontouchend = function () {
-        input.start = 0
-    }
+    // start.ontouchend = function () {
+    //     input.start = 0
+    // }
 
-    start.oncontextmenu = function (e) {
+    input.START.oncontextmenu = function (e) {
         e.preventDefault()
         e.stopPropagation()
         e.stopImmediatePropagation();
@@ -142,21 +142,21 @@ document.addEventListener ('DOMContentLoaded', function (){
         input.joyY = 0;
     }
 
-    function inputTest () {
-        var h = 18;
-        print (`+========[ Controles ]========+`, 0, h);
-        print (`|+=JOYSTICK                   |`, 0, h*2);
-        print (`|+---X: ${input.joyX.toString().padStart(3,' ')}                   |`, 0, h*3);
-        print (`|+---Y: ${input.joyY.toString().padStart(3,' ')}                   |`, 0, h*4);
-        print (`|                             |`, 0, h*5);
-        print (`|    Y:   ${input.Y}                   |`, 0, h*6);
-        print (`|    X:   ${input.X}                   |`, 0, h*7);
-        print (`|    B:   ${input.B}                   |`, 0, h*8);
-        print (`|    A:   ${input.A}                   |`, 0, h*9);
-        print (`|                             |`, 0, h*10);
-        print (`|START:   ${input.start}                   |`, 0, h*11);
-        print (`+-----------------------------+`, 0, h*12);
-    }
+    // function inputTest () {
+    //     var h = 18;
+    //     print (`+========[ Controles ]========+`, 0, h);
+    //     print (`|+=JOYSTICK                   |`, 0, h*2);
+    //     print (`|+---X: ${input.joyX.toString().padStart(3,' ')}                   |`, 0, h*3);
+    //     print (`|+---Y: ${input.joyY.toString().padStart(3,' ')}                   |`, 0, h*4);
+    //     print (`|                             |`, 0, h*5);
+    //     print (`|    Y:   ${input.Y}                   |`, 0, h*6);
+    //     print (`|    X:   ${input.X}                   |`, 0, h*7);
+    //     print (`|    B:   ${input.B}                   |`, 0, h*8);
+    //     print (`|    A:   ${input.A}                   |`, 0, h*9);
+    //     print (`|                             |`, 0, h*10);
+    //     print (`|START:   ${input.start}                   |`, 0, h*11);
+    //     print (`+-----------------------------+`, 0, h*12);
+    // }
 
     Type = {
         COLOR : 0,
