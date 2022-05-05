@@ -97,7 +97,7 @@ document.addEventListener ('DOMContentLoaded', function (){
                 paused = true;
             }
         } else {
-            audioLoop ('assets/ghosthouse.wav');
+            audioLoop ('assets/ghosthouse.ogg');
             gameloop = setInterval (main, 1000/60);
             paused = false;
             run = true;
