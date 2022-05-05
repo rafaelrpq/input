@@ -43,8 +43,8 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     input.Y.ontouchstart = function () {
         navigator.vibrate(10)
-        player.w = (player.w < 128) ? player.w * 2 : player.w;
-        player.h = (player.h < 128) ? player.h * 2 : player.h;
+        player.w = (player.w < 128) ? player.w * 1.25 : player.w;
+        player.h = (player.h < 128) ? player.h * 1.25 : player.h;
     }
 
     input.X.ontouchstart = function (e) {
@@ -53,8 +53,8 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     input.B.ontouchstart = function (e) {
         navigator.vibrate(10)
-        player.w = (player.w > 32) ? player.w / 2 : player.w;
-        player.h = (player.h > 32) ? player.h / 2 : player.h;
+        player.w = (player.w > 32) ? player.w / 1.25 : player.w;
+        player.h = (player.h > 32) ? player.h / 1.25 : player.h;
     }
 
     input.A.ontouchstart = function (e) {
