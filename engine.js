@@ -79,6 +79,7 @@ document.addEventListener ('DOMContentLoaded', function (){
         } else {
             let msg = "[ PAUSE ]";
             let len = msg.length;
+            print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/2)+1, '#000');
             print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
             clearInterval (run);
             paused = true;
