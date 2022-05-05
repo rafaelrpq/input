@@ -264,10 +264,10 @@ document.addEventListener ('DOMContentLoaded', function (){
         ctx.clearRect (0,0, WIDTH, HEIGHT);
         drawBG ();
         updatePlayer ();
-        print (`vel x  : ${(input.joyX).toFixed(1).toString().padStart(4,' ')}`,17, 17, '#a00');
-        print (`vel x  : ${(input.joyX).toFixed(1).toString().padStart(4,' ')}`,16, 16);
-        print (`vel y  : ${(input.joyY).toFixed(1).toString().padStart(4,' ')}`,17, 37, '#a00');
-        print (`vel y  : ${(input.joyY).toFixed(1).toString().padStart(4,' ')}`,16, 36);
+        // print (`vel x  : ${(input.joyX).toFixed(1).toString().padStart(4,' ')}`,17, 17, '#a00');
+        // print (`vel x  : ${(input.joyX).toFixed(1).toString().padStart(4,' ')}`,16, 16);
+        // print (`vel y  : ${(input.joyY).toFixed(1).toString().padStart(4,' ')}`,17, 37, '#a00');
+        // print (`vel y  : ${(input.joyY).toFixed(1).toString().padStart(4,' ')}`,16, 36);
         // requestAnimationFrame (main);
     }
 
