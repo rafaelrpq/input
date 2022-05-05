@@ -84,6 +84,20 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     start.ontouchstart = function (e) {
         input.start = 1;
+        if (paused) {
+            navigator.vibrate(10)
+            run = setInterval (main, 1000/60);
+            paused = false;
+            console.log ('running');
+        } else {
+            navigator.vibrate([10,10,10]);
+            let msg = "[ PAUSE ]";
+            let len = msg.length;
+            print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
+            clearInterval (run);
+            paused = true;
+            console.log ('paused');
+        }
     }
 
     start.ontouchend = function () {
@@ -259,24 +273,6 @@ document.addEventListener ('DOMContentLoaded', function (){
         if (input.B) {
             player.w = (player.w > 32) ? player.w / 2 : player.w;
             player.h = (player.h > 32) ? player.h / 2 : player.h;
-        }
-
-        if (input.start) {
-            if (!paused) {
-                // navigator.vibrate(10,10,10);
-                let msg = "[ PAUSE ]";
-                let len = msg.length;
-                print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
-                clearInterval (run);
-                paused = true;
-                console.log ('paused');
-                teste ();
-            } else {
-                // navigator.vibrate(10)
-                run = setInterval (main, 1000/60);
-                paused = false;
-                console.log ('running');
-            }
         }
 
         player.draw ();
