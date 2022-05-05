@@ -2,7 +2,19 @@ var dpad, joy, buttons, start;
 
 var player;
 
-var run, paused;
+var run, gameloop, paused;
+
+function audioLoop (bgSound) {
+    var audio = new Audio (bgSound);
+    audio.addEventListener ('timeupdate', function () {
+        var buffer = .5;
+        if (this.currentTime > this.duration - buffer) {
+            this.currentTime = 0;
+            this.play ();
+        }
+    });
+    audio.play ();
+}
 
 document.addEventListener ('DOMContentLoaded', function (){
     console.log ('content loaded');
@@ -72,16 +84,23 @@ document.addEventListener ('DOMContentLoaded', function (){
 
     input.START.ontouchstart = function (e) {
         navigator.vibrate(10)
-        if (paused) {
-            run = setInterval (main, 1000/60);
-            paused = false;
+        if (run) {
+            if (paused) {
+                gameloop = setInterval (main, 1000/60);
+                paused = false;
+            } else {
+                let msg = "[ PAUSE ]";
+                let len = msg.length;
+                print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/2)+1, '#000');
+                print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
+                clearInterval (gameloop);
+                paused = true;
+            }
         } else {
-            let msg = "[ PAUSE ]";
-            let len = msg.length;
-            print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/2)+1, '#000');
-            print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/2), '#fa0');
-            clearInterval (run);
-            paused = true;
+            audioLoop ('assets/ghosthouse.wav');
+            gameloop = setInterval (main, 1000/60);
+            paused = false;
+            run = true;
         }
     }
 
@@ -108,8 +127,8 @@ document.addEventListener ('DOMContentLoaded', function (){
             y = (y < -32) ? -32 : y;
             y = (y >  32) ?  32 : y;
             joy.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-            input.joyX = x;
-            input.joyY = y;
+            input.joyX = x/8;
+            input.joyY = y/8;
         }
     }
 
@@ -209,8 +228,8 @@ document.addEventListener ('DOMContentLoaded', function (){
         move () {
             this.direction = (input.joyX < 0) ? Direction.LEFT : (input.joyX > 0) ? Direction.RIGHT : this.direction ;
 
-            player.x += input.joyX/4;
-            player.y += input.joyY/4;
+            player.x += input.joyX;
+            player.y += input.joyY;
             // player.x += (input.joyX == -32) ? -1 : (input.joyX == 32) ? 1 : 0;
             // player.y += (input.joyY == -32) ? -1 : (input.joyY == 32) ? 1 : 0;
         }
@@ -245,10 +264,10 @@ document.addEventListener ('DOMContentLoaded', function (){
         ctx.clearRect (0,0, WIDTH, HEIGHT);
         drawBG ();
         updatePlayer ();
-        print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,17, 17, '#a00');
-        print (`vel x  : ${(input.joyX/4).toString().padStart(4,' ')}`,16, 16);
-        print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,17, 37, '#a00');
-        print (`vel y  : ${(input.joyY/4).toString().padStart(4,' ')}`,16, 36);
+        print (`vel x  : ${(input.joyX).toFixed(1).toString().padStart(4,' ')}`,17, 17, '#a00');
+        print (`vel x  : ${(input.joyX).toFixed(1).toString().padStart(4,' ')}`,16, 16);
+        print (`vel y  : ${(input.joyY).toFixed(1).toString().padStart(4,' ')}`,17, 37, '#a00');
+        print (`vel y  : ${(input.joyY).toFixed(1).toString().padStart(4,' ')}`,16, 36);
         // requestAnimationFrame (main);
     }
 
@@ -256,8 +275,8 @@ document.addEventListener ('DOMContentLoaded', function (){
         console.log ('teste');
     }
 
+
+
     // main ();
-    run = setInterval (main, 1000/60);
-    paused = false;
 
 }, false)
