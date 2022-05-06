@@ -31,6 +31,20 @@ function pauseGame () {
     paused = true;
 }
 
+function titleScreen () {
+    let logo = new Image ();
+    logo.src = 'assets/boo.png';
+    let msg = "Aperte START";
+    let len = msg.length;
+    ctx.save ();
+    ctx.fillStyle = '#323';
+    ctx.fillRect (0,0,WIDTH,HEIGHT);
+    ctx.restore ();
+    ctx.drawImage (logo, (WIDTH/2) - 128, (HEIGHT/2) -128, 256, 256);
+    print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/1.1)+1, '#000');
+    print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/1.1), '#fa0');
+}
+
 document.addEventListener ('DOMContentLoaded', function (){
     console.log ('content loaded');
 
@@ -53,6 +67,7 @@ document.addEventListener ('DOMContentLoaded', function (){
         ctx.restore();
     }
 
+    titleScreen ();
 
     input = {
         joyX  : 0,
