@@ -1,6 +1,5 @@
 
 var currentScene = {};
-document.addEventListener ("DOMContentLoaded", ()=>{
 
     function changeScene (scene) {
         if (currentScene.sound) currentScene.sound.pause ();
@@ -102,7 +101,6 @@ document.addEventListener ("DOMContentLoaded", ()=>{
 
     currentScene = titleScreen;
 
-});
 function main(){
   ctx.clearRect (0,0,WIDTH,HEIGHT);
   currentScene.update ();
