@@ -8,8 +8,8 @@ var bgSound;
 
 var canvas, ctx;
 
-var WIDTH;
-var HEIGHT;
+var WIDTH  = 512;
+var HEIGHT = 384;
 function playAudio (sound, volume=1, loop = false) {
     var audio = new Audio (sound);
     if (loop) {
@@ -76,8 +76,8 @@ document.addEventListener ('DOMContentLoaded', function (){
 
 
     canvas = document.querySelector('canvas');
-    HEIGHT = canvas.height;
-    WIDTH  = canvas.width;
+    canvas.height = HEIGHT;
+    canvas.width  = WIDTH;
     ctx    = canvas.getContext ('2d');
     ctx.imageSmoothingEnabled = false;
 
