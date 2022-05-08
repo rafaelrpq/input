@@ -1,6 +1,6 @@
-document.addEventListener ("DOMContentLoaded", ()=>{
 
-    var currentScene = {};
+var currentScene = {};
+document.addEventListener ("DOMContentLoaded", ()=>{
 
     function changeScene (scene) {
         if (currentScene.sound) currentScene.sound.pause ();
@@ -62,8 +62,8 @@ document.addEventListener ("DOMContentLoaded", ()=>{
             input.Y.ontouchstart = function () {
                 navigator.vibrate(10)
                 if (!paused && run) {
-                    player.w = (player.w < 128) ? player.w * 1.25 : player.w;
-                    player.h = (player.h < 128) ? player.h * 1.25 : player.h;
+                    player.w = (player.w < 96) ? player.w * 1.2 : player.w;
+                    player.h = (player.h < 96) ? player.h * 1.2 : player.h;
                 }
             }
 
@@ -74,8 +74,8 @@ document.addEventListener ("DOMContentLoaded", ()=>{
             input.B.ontouchstart = function (e) {
                 navigator.vibrate(10)
                 if (!paused && run) {
-                    player.w = (player.w > 32) ? player.w / 1.25 : player.w;
-                    player.h = (player.h > 32) ? player.h / 1.25 : player.h;
+                    player.w = (player.w > 32) ? player.w / 1.2 : player.w;
+                    player.h = (player.h > 32) ? player.h / 1.2 : player.h;
                 }
             }
 
@@ -102,11 +102,11 @@ document.addEventListener ("DOMContentLoaded", ()=>{
 
     currentScene = titleScreen;
 
-    function main(){
-      ctx.clearRect (0,0,WIDTH,HEIGHT);
-      currentScene.update ();
-      currentScene.draw ();
-    }
-
-    gameloop = setInterval (main, 1000/60);
 });
+function main(){
+  ctx.clearRect (0,0,WIDTH,HEIGHT);
+  currentScene.update ();
+  currentScene.draw ();
+}
+
+gameloop = setInterval (main, 1000/60);
