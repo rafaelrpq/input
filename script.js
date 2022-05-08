@@ -1,109 +1,112 @@
-var currentScene = {};
+document.addEventListener ("DOMContentLoaded", ()=>{
 
-function changeScene (scene) {
-    if (currentScene.sound) currentScene.sound.pause ();
-    currentScene = scene;
-    if (currentScene.sound) currentScene.sound.play ();
-}
+    var currentScene = {};
 
-titleScreen = {
-    sound : playAudio (),
-    logo : new Image (),
-    draw () {
-        this.logo.src = 'assets/boo.png';
-        ctx.save ();
-        ctx.fillStyle = '#323';
-        ctx.fillRect (0,0,WIDTH,HEIGHT);
-        ctx.restore ();
-        let msg = "Aperte START";
-        let len = msg.length;
-        ctx.drawImage (this.logo, (WIDTH/2) - 128, (HEIGHT/2) -128, 256, 256);
-        print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/1.1)+1, '#000');
-        print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/1.1), '#fa0');
-    },
+    function changeScene (scene) {
+        if (currentScene.sound) currentScene.sound.pause ();
+        currentScene = scene;
+        if (currentScene.sound) currentScene.sound.play ();
+    }
 
-    update () {
-        this.readInput();
-    },
+    titleScreen = {
+        sound : playAudio (),
+        logo : new Image (),
+        draw () {
+            this.logo.src = 'assets/boo.png';
+            ctx.save ();
+            ctx.fillStyle = '#323';
+            ctx.fillRect (0,0,WIDTH,HEIGHT);
+            ctx.restore ();
+            let msg = "Aperte START";
+            let len = msg.length;
+            ctx.drawImage (this.logo, (WIDTH/2) - 128, (HEIGHT/2) -128, 256, 256);
+            print (msg, (WIDTH /2) - ((len / 2) * 16)+1  , (HEIGHT/1.1)+1, '#000');
+            print (msg, (WIDTH /2) - ((len / 2) * 16)  , (HEIGHT/1.1), '#fa0');
+        },
 
-    readInput () {
-        input.START.ontouchstart = () => {
-            if (run) {
-                changeScene (game);
-            } else {
-                gameloop = setInterval (main, 1000/60);
-                run = true;
+        update () {
+            this.readInput();
+        },
+
+        readInput () {
+            input.START.ontouchstart = () => {
+                if (run) {
+                    changeScene (game);
+                } else {
+                    gameloop = setInterval (main, 1000/60);
+                    run = true;
+                }
             }
-        }
-    },
-}
+        },
+    }
 
-game = {
-    bg : new Image(),
-    player : new Player (WIDTH/2 - 16, HEIGHT/2 - 16, 32, 32, 'assets/boo.png', Type.IMAGE),
-    sound : playAudio ('assets/ghosthouse.mp3', 0.5, true),
+    game = {
+        bg : new Image(),
+        player : new Player (WIDTH/2 - 16, HEIGHT/2 - 16, 32, 32, 'assets/boo.png', Type.IMAGE),
+        sound : playAudio ('assets/ghosthouse.mp3', 0.5, true),
 
-    draw () {
-        this.bg.src = 'assets/Ghost House.png';
-        ctx.drawImage (this.bg, 0, 0, WIDTH, HEIGHT);
-        this.player.draw () ;
-    },
+        draw () {
+            this.bg.src = 'assets/ghosthouse.png';
+            ctx.drawImage (this.bg, 0, 0, WIDTH, HEIGHT);
+            this.player.draw () ;
+        },
 
-    update () {
-        this.readInput();
-        this.player.update ();
-        borderDetect (this.player);
-    },
+        update () {
+            this.readInput();
+            this.player.update ();
+            borderDetect (this.player);
+        },
 
-    readInput () {
-        let player = this.player;
-        input.Y.ontouchstart = function () {
-            navigator.vibrate(10)
-            if (!paused && run) {
-                player.w = (player.w < 128) ? player.w * 1.25 : player.w;
-                player.h = (player.h < 128) ? player.h * 1.25 : player.h;
+        readInput () {
+            let player = this.player;
+            input.Y.ontouchstart = function () {
+                navigator.vibrate(10)
+                if (!paused && run) {
+                    player.w = (player.w < 128) ? player.w * 1.25 : player.w;
+                    player.h = (player.h < 128) ? player.h * 1.25 : player.h;
+                }
             }
-        }
 
-        input.X.ontouchstart = function (e) {
-            navigator.vibrate(10)
-        }
-
-        input.B.ontouchstart = function (e) {
-            navigator.vibrate(10)
-            if (!paused && run) {
-                player.w = (player.w > 32) ? player.w / 1.25 : player.w;
-                player.h = (player.h > 32) ? player.h / 1.25 : player.h;
+            input.X.ontouchstart = function (e) {
+                navigator.vibrate(10)
             }
-        }
 
-        input.A.ontouchstart = function (e) {
-            navigator.vibrate(10)
-            if (!paused && run) {
-                let coin  = playAudio ('assets/coin.mp3');
-                coin.play();
+            input.B.ontouchstart = function (e) {
+                navigator.vibrate(10)
+                if (!paused && run) {
+                    player.w = (player.w > 32) ? player.w / 1.25 : player.w;
+                    player.h = (player.h > 32) ? player.h / 1.25 : player.h;
+                }
             }
-        }
 
-        input.START.ontouchstart = function (e) {
-            navigator.vibrate(10)
-            if (run) {
-                pause ();
-            } else {
-                run = true;
-                gameloop = setInterval (main, 1000/60);
-                currentScene.sound.play()
+            input.A.ontouchstart = function (e) {
+                navigator.vibrate(10)
+                if (!paused && run) {
+                    let coin  = playAudio ('assets/coin.mp3');
+                    coin.play();
+                }
+            }
+
+            input.START.ontouchstart = function (e) {
+                navigator.vibrate(10)
+                if (run) {
+                    pause ();
+                } else {
+                    run = true;
+                    gameloop = setInterval (main, 1000/60);
+                    currentScene.sound.play()
+                }
             }
         }
     }
-}
 
-currentScene = titleScreen;
+    currentScene = titleScreen;
 
-function main(){
-  ctx.clearRect (0,0,WIDTH,HEIGHT);
-  currentScene.update ();
-  currentScene.draw ();
-}
+    function main(){
+      ctx.clearRect (0,0,WIDTH,HEIGHT);
+      currentScene.update ();
+      currentScene.draw ();
+    }
 
-gameloop = setInterval (main, 1000/60);
+    gameloop = setInterval (main, 1000/60);
+});
